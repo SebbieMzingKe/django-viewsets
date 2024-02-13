@@ -56,6 +56,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'blog.urls'
 
+REST_FRAMEWORK = {
+    "NON_FIELD_ERRORS_KEY":"errors",
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
