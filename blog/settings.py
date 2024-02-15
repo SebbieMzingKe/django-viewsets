@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'posts',
     'accounts',
     'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 AUTH_USER_MODEL = "accounts.User"
@@ -56,9 +57,17 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'blog.urls'
 
-REST_FRAMEWORK = {
-    "NON_FIELD_ERRORS_KEY":"errors",
+REST_FRAMEWORK={
+    "NON_FILLED_ERRORS_KEY":"errors",
+    "DEFAULT_AUTHENTICATION_CLASSES":(
+        "rest_framework.authentication.SessionAuthentication",
+        'rest_framework.authentication.TokenAuthentication'
+    ),
+    "DEFAULT_PERMISSIONS_CLASSES":(
+        "rest_framework.authentication.IsAuthentication"
+    ),
 }
+
 
 TEMPLATES = [
     {
