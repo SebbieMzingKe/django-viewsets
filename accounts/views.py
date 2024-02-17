@@ -6,6 +6,8 @@ from rest_framework.request import Request
 from rest_framework.validators import ValidationError
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate
+from .tokens import create_jwt_pair_for_user
+
 
 
 # Create your views here.
@@ -34,9 +36,11 @@ class LoginView(APIView):
         user = authenticate(email = email, password = password)
 
         if user is not None:
+            tokens = create_jwt_pair_for_user(user)
             response = {
-                "message":"Login Successfull",
-                "token":user.auth_token.key
+                "message":"Login Successfull", 
+                "tokens":tokens
+                
             }
             
             return Response(data = response, status = status.HTTP_200_OK)
