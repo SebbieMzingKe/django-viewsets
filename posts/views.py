@@ -27,6 +27,11 @@ class PostListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.
     serializer_class = PostSerializer
     queryset = Post.objects.all()
 
+    def perform_create(self, serializer):
+        user = self.request.user
+        serializer.save(author = user)
+        return super().perform_create(serializer)
+
     
     def get(self, request:Request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
